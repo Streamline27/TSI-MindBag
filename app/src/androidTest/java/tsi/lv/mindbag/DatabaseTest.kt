@@ -4,7 +4,7 @@ import android.arch.persistence.room.Room
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import junit.framework.Assert.assertTrue
-import tsi.lv.mindbag.db.AppDatabase
+import tsi.lv.mindbag.database.AppDatabase
 import org.junit.Test
 import org.junit.runner.RunWith
 import tsi.lv.mindbag.domain.Note

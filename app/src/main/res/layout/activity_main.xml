@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="tsi.lv.mindbag.MainActivity">
+    tools:context="tsi.lv.mindbag.screens.MainActivity">
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/notesListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </ListView>
+    </android.support.v7.widget.RecyclerView>
 
 </FrameLayout>

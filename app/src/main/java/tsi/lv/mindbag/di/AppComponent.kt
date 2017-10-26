@@ -1,7 +1,7 @@
 package tsi.lv.mindbag.di
 
 import dagger.Component
-import tsi.lv.mindbag.MainActivity
+import tsi.lv.mindbag.screens.MainActivity
 import javax.inject.Singleton
 
 @Singleton

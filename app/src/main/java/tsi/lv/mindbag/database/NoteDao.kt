@@ -1,4 +1,4 @@
-package tsi.lv.mindbag.db
+package tsi.lv.mindbag.database
 
 
 import android.arch.persistence.room.Dao

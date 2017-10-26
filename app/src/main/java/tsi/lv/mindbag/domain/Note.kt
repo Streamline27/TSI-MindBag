@@ -21,4 +21,8 @@ class Note() {
         this.caption = caption
         this.content = content
     }
+
+    constructor(caption: String) : this(){
+        this.caption = caption;
+    }
 }
