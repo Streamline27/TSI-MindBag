@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="1dp"
+    android:paddingBottom="2dp"
     android:clipToPadding="false">
 
     <LinearLayout
@@ -10,9 +10,9 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:elevation="1dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:elevation="2dp"
         android:background="@android:color/white">
 
         <ImageView
@@ -31,7 +31,7 @@
                 android:id="@+id/noteItemCaption"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/app_name"
+                android:text="Война и мир"
                 android:textSize="16dp"
                 android:gravity="center_vertical"/>
             <TextView

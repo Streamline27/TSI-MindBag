@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MindBag.iml" filepath="$PROJECT_DIR$/MindBag.iml" />
+      <module fileurl="file://D:\Programming\Java\TSI-Mindbag\MindBag.iml" filepath="D:\Programming\Java\TSI-Mindbag\MindBag.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TSI-Mindbag.iml" filepath="$PROJECT_DIR$/TSI-Mindbag.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -10,7 +10,10 @@ import tsi.lv.mindbag.R
 import tsi.lv.mindbag.domain.Note
 
 
-class NoteAdapter(val ctx : Context, val notes: List<Note>, val listener : (Note) -> Unit) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
+class NoteListAdapter(val ctx    : Context,
+                      val notes  : List<Note>,
+                      val clickListener     : (Note) -> Unit,
+                      val longClickListener : (Note) -> Boolean) : RecyclerView.Adapter<NoteListAdapter.NoteViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.note_item, parent, false);
@@ -18,7 +21,7 @@ class NoteAdapter(val ctx : Context, val notes: List<Note>, val listener : (Note
     }
 
     override fun onBindViewHolder(holderNote: NoteViewHolder, position: Int) {
-        holderNote.bind(this.notes[position], listener);
+        holderNote.bind(this.notes[position], clickListener, longClickListener);
     }
 
     override fun getItemCount(): Int {
@@ -28,9 +31,13 @@ class NoteAdapter(val ctx : Context, val notes: List<Note>, val listener : (Note
     
     class NoteViewHolder(val noteView: View) : RecyclerView.ViewHolder(noteView){
 
-        fun bind(note: Note, listener : (Note) -> Unit) = with(noteView){
+        fun bind(note :  Note,
+                 clickListener     : (Note) -> Unit,
+                 longClickListener : (Note) -> Boolean) = with(noteView){
+
             noteItemCaption.text = note.caption
-            setOnClickListener{ listener(note) }
+            setOnClickListener{ clickListener(note) }
+            setOnLongClickListener{ longClickListener(note) }
         }
     }
 }
