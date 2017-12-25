@@ -10,17 +10,19 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import tsi.lv.mindbag.App
 import tsi.lv.mindbag.R
-import tsi.lv.mindbag.perform
+import tsi.lv.mindbag.utilities.perform
 import tsi.lv.mindbag.di.HelloDagger
 import tsi.lv.mindbag.domain.Note
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AddNoteDialog.OnAddNoteListener, DeleteNoteDialog.OnDeleteNoteListener {
 
-    var names = listOf(
+    var names = mutableListOf(
             Note(caption = "Sanja"),
             Note(caption = "Petja")
     );
+
+    var mAdapter : NoteListAdapter? = null
 
     @Inject
     lateinit var helloDager : HelloDagger;
@@ -35,7 +37,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(mainToolbar)
 
         notesListView.layoutManager = LinearLayoutManager(this)
-        notesListView.adapter = NoteListAdapter(this, names, this::onNoteItemClick, this::onNoteItemLongClick)
+
+        mAdapter = NoteListAdapter(this, names, this::onNoteItemClick, this::onNoteItemLongClick);
+        notesListView.adapter = mAdapter
 
         supportActionBar?.title = "Notes"
     }
@@ -60,8 +64,14 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun onNoteItemLongClick(note : Note) : Boolean{
-        DeleteNoteDialog().show(fragmentManager, "Delete")
+    fun onNoteItemLongClick(note : Note) : Boolean {
+        val deleteFragment = DeleteNoteDialog()
+
+        val args = Bundle()
+        args.putString("caption", note.caption)
+        deleteFragment.arguments = args
+
+        deleteFragment.show(fragmentManager, "Delete")
         return true
     }
 
@@ -72,5 +82,13 @@ class MainActivity : AppCompatActivity() {
 
     fun onMenuAddNoteClick() {
         AddNoteDialog().show(fragmentManager, "Create")
+    }
+
+    override fun onAddNoteClick(caption: String) {
+        mAdapter?.add(Note(caption))
+    }
+
+    override fun onDeleteNoteClick(caption: String) {
+        mAdapter?.delete(caption)
     }
 }

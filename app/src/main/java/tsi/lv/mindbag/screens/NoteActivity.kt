@@ -18,7 +18,7 @@ class NoteActivity : AppCompatActivity() {
 
         setSupportActionBar(noteToolbar)
 
-        supportActionBar?.title = "Note name"
+        supportActionBar?.title = "Note details"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         noteToolbar.setNavigationOnClickListener { onUpOrCheckButtonClick() }

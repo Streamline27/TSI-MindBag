@@ -14,17 +14,28 @@ import android.widget.Toast
  */
 class AddNoteDialog : DialogFragment() {
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+    var onAddNoteListener : OnAddNoteListener? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        onAddNoteListener = activity as OnAddNoteListener
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val editText = EditText(activity)
 
         val dialog = AlertDialog.Builder(activity)
                 .setTitle("Create note")
                 .setView(editText)
-                .setPositiveButton("Create", { _, _ -> Toast.makeText(activity, "Create click", Toast.LENGTH_SHORT).show() })
-                .setNegativeButton("Cancel", { _, _ -> Toast.makeText(activity, "Cancel click", Toast.LENGTH_SHORT).show() })
+                .setPositiveButton("Create", { _, _ -> onAddNoteListener?.onAddNoteClick(editText.text.toString()) })
+                .setNegativeButton("Cancel", { _, _ -> })
                 .create()
 
         return dialog
+    }
+
+    interface OnAddNoteListener {
+        fun onAddNoteClick(caption : String)
     }
 }

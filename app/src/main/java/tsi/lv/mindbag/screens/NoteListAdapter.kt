@@ -11,9 +11,10 @@ import tsi.lv.mindbag.domain.Note
 
 
 class NoteListAdapter(val ctx    : Context,
-                      val notes  : List<Note>,
+                      val notes  : MutableList<Note>,
                       val clickListener     : (Note) -> Unit,
                       val longClickListener : (Note) -> Boolean) : RecyclerView.Adapter<NoteListAdapter.NoteViewHolder>() {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.note_item, parent, false);
@@ -26,6 +27,16 @@ class NoteListAdapter(val ctx    : Context,
 
     override fun getItemCount(): Int {
         return notes.size;
+    }
+
+    fun add(note : Note) {
+        notes.add(note)
+        notifyDataSetChanged()
+    }
+
+    fun delete(caption: String) {
+        notes.removeAll { it.caption.equals(caption) }
+        notifyDataSetChanged()
     }
 
     
