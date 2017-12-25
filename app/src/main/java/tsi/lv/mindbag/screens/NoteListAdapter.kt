@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.note_item.view.*
 import tsi.lv.mindbag.R
-import tsi.lv.mindbag.domain.Note
+import tsi.lv.mindbag.model.domain.Note
 
 
 class NoteListAdapter(val ctx    : Context,
@@ -34,8 +34,8 @@ class NoteListAdapter(val ctx    : Context,
         notifyDataSetChanged()
     }
 
-    fun delete(caption: String) {
-        notes.removeAll { it.caption.equals(caption) }
+    fun delete(id: Int) {
+        notes.removeAll { id.equals(it.id) }
         notifyDataSetChanged()
     }
 

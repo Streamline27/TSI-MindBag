@@ -1,4 +1,4 @@
-package tsi.lv.mindbag.domain
+package tsi.lv.mindbag.model.domain
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
@@ -7,9 +7,9 @@ import android.arch.persistence.room.PrimaryKey
 @Entity
 class Note() {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id: Int = 0
+    var id: Int? = null
 
     @ColumnInfo(name = "caption")
     var caption: String? = null
@@ -17,12 +17,9 @@ class Note() {
     @ColumnInfo(name = "content")
     var content: String? = null
 
-    constructor(caption: String, content: String): this() {
+    constructor(caption: String, content: String? = null, id : Int? = null): this() {
         this.caption = caption
         this.content = content
-    }
-
-    constructor(caption: String) : this(){
-        this.caption = caption;
+        this.id = id
     }
 }

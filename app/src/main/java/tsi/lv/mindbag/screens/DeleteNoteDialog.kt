@@ -6,8 +6,6 @@ import android.app.DialogFragment
 import android.content.DialogInterface.BUTTON_POSITIVE
 import android.graphics.Color.RED
 import android.os.Bundle
-import android.widget.Toast
-import tsi.lv.mindbag.domain.Note
 
 /**
  * Created by Vladislav on 12/24/2017.
@@ -24,12 +22,12 @@ class DeleteNoteDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        val caption = arguments.getString("caption") as String
+        val caption = arguments.getString("id") as Int
 
-        val dialog =AlertDialog.Builder(activity)
+        val dialog = AlertDialog.Builder(activity)
                 .setTitle("Delete note")
                 .setMessage("Are you sure you want to delete it?")
-                .setPositiveButton("Delete", { _,_ -> onDeleteNoteListener?.onDeleteNoteClick(caption) })
+                .setPositiveButton("Delete", { _,_ -> onDeleteNoteListener?.onDeleteNoteClick(id) })
                 .setNegativeButton("Cancel", { _,_ -> })
                 .create()
 
@@ -38,7 +36,13 @@ class DeleteNoteDialog : DialogFragment() {
         return dialog
     }
 
+    fun addNoteIdArg(id : Int?) {
+        val args = arguments ?: Bundle()
+        args.putInt("id", id?: -1)
+        arguments = args
+    }
+
     interface OnDeleteNoteListener {
-        fun onDeleteNoteClick(caption : String)
+        fun onDeleteNoteClick(id : Int)
     }
 }

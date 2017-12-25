@@ -4,13 +4,13 @@ import android.arch.persistence.room.Room
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import junit.framework.Assert.assertTrue
-import tsi.lv.mindbag.database.AppDatabase
+import tsi.lv.mindbag.model.database.AppDatabase
 import org.junit.Test
 import org.junit.runner.RunWith
-import tsi.lv.mindbag.domain.Note
+import tsi.lv.mindbag.model.domain.Note
 
 @RunWith(AndroidJUnit4::class)
-class DatabaseTest {
+class DatabaseTest() {
 
     @Test
     fun testDatabase() {
@@ -19,7 +19,9 @@ class DatabaseTest {
 
         val db = Room.databaseBuilder(appContext, AppDatabase::class.java, "db-name").build();
 
-        db.noteDao().create(Note(caption = "Caption", content = "content"))
+        val note = Note(caption = "Caption", content = "content")
+        db.noteDao().create(note)
+        note.id = db.noteDao().getLastAutoIncrement()
 
         var notes = db.noteDao().getAll();
 

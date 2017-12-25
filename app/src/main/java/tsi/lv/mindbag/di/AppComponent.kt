@@ -2,6 +2,7 @@ package tsi.lv.mindbag.di
 
 import dagger.Component
 import tsi.lv.mindbag.screens.MainActivity
+import tsi.lv.mindbag.screens.NoteActivity
 import javax.inject.Singleton
 
 @Singleton
@@ -9,5 +10,6 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(mainActivity: MainActivity)
+    fun inject(noteActivity: NoteActivity)
 
 }

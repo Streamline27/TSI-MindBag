@@ -39,7 +39,7 @@
                 <include layout ="@layout/header_note"/>
 
                 <EditText
-                    android:id="@+id/content_text"
+                    android:id="@+id/noteItemContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
