@@ -10,9 +10,22 @@ import android.os.Bundle
 /**
  * Created by Vladislav on 12/24/2017.
  */
+/* Todo: Create abstract class for this */
 class DeleteNoteDialog : DialogFragment() {
 
     var onDeleteNoteListener : OnDeleteNoteListener? = null
+
+    companion object {
+        fun newInstance(id : Int?) : DeleteNoteDialog {
+            val dialog = DeleteNoteDialog()
+
+            val args = dialog.arguments ?: Bundle()
+            args.putInt("id", id?: -1)
+            dialog.arguments = args
+
+            return dialog
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,12 +47,6 @@ class DeleteNoteDialog : DialogFragment() {
         dialog.setOnShowListener( { dialog.getButton(BUTTON_POSITIVE).setTextColor(RED)})
 
         return dialog
-    }
-
-    fun addNoteIdArg(id : Int?) {
-        val args = arguments ?: Bundle()
-        args.putInt("id", id?: -1)
-        arguments = args
     }
 
     interface OnDeleteNoteListener {

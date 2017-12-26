@@ -10,8 +10,7 @@ import tsi.lv.mindbag.R
 import tsi.lv.mindbag.model.domain.Note
 
 
-class NoteListAdapter(val ctx    : Context,
-                      val notes  : MutableList<Note>,
+class NoteListAdapter(val notes  : MutableList<Note>,
                       val clickListener     : (Note) -> Unit,
                       val longClickListener : (Note) -> Boolean) : RecyclerView.Adapter<NoteListAdapter.NoteViewHolder>() {
 

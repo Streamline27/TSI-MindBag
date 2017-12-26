@@ -9,6 +9,7 @@ import android.widget.EditText
 /**
  * Created by Vladislav on 12/24/2017.
  */
+/* Todo: Create abstract class for this */
 class AddNoteDialog : DialogFragment() {
 
     var onAddNoteListener : OnAddNoteListener? = null

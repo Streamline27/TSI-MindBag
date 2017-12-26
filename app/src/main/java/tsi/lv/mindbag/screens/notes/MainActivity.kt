@@ -1,9 +1,15 @@
 package tsi.lv.mindbag.screens.notes
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.support.v4.app.FragmentActivity
+import android.support.v4.view.GravityCompat
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Gravity
+import android.view.Gravity.START
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -13,10 +19,11 @@ import tsi.lv.mindbag.R
 import tsi.lv.mindbag.perform
 import tsi.lv.mindbag.model.Model
 import tsi.lv.mindbag.model.domain.Note
+import tsi.lv.mindbag.screens.books.BooksFragment
 import tsi.lv.mindbag.screens.content.ContentActivity
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), AddNoteDialog.OnAddNoteListener, DeleteNoteDialog.OnDeleteNoteListener {
+class MainActivity : AppCompatActivity(), AddNoteDialog.OnAddNoteListener, DeleteNoteDialog.OnDeleteNoteListener{
 
     var mAdapter : NoteListAdapter? = null
 
@@ -33,9 +40,21 @@ class MainActivity : AppCompatActivity(), AddNoteDialog.OnAddNoteListener, Delet
         setSupportActionBar(mainToolbar)
         supportActionBar?.title = "Notes"
 
+        // Init drawer
+        val toggle =
+                ActionBarDrawerToggle(
+                        this,
+                        drawerLayout,
+                        mainToolbar,
+                        R.string.navigation_drawer_open,
+                        R.string.navigation_drawer_close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+
         notesListView.layoutManager = LinearLayoutManager(this)
 
-        mAdapter = NoteListAdapter(this, mutableCopyOf(model.getNotes()), this::onNoteItemClick, this::onNoteItemLongClick);
+        mAdapter = NoteListAdapter(mutableCopyOf(model.getNotes()), this::onNoteItemClick, this::onNoteItemLongClick);
         notesListView.adapter = mAdapter
 
     }
@@ -62,13 +81,18 @@ class MainActivity : AppCompatActivity(), AddNoteDialog.OnAddNoteListener, Delet
     }
 
     fun onNoteItemLongClick(note : Note) : Boolean {
-        val deleteFragment = DeleteNoteDialog()
-        deleteFragment.addNoteIdArg(note.id)
+        val deleteFragment = DeleteNoteDialog.newInstance(note.id)
         deleteFragment.show(fragmentManager, "Delete")
 
         return true
     }
 
+    override fun onBackPressed() {
+        when {
+            drawerLayout.isDrawerVisible(GravityCompat.START) -> drawerLayout.closeDrawer(GravityCompat.START)
+            else -> super.onBackPressed()
+        }
+    }
 
     private fun onMenuSettingsClick() {
         Toast.makeText(this, "Settings click", Toast.LENGTH_SHORT).show()
@@ -98,4 +122,5 @@ class MainActivity : AppCompatActivity(), AddNoteDialog.OnAddNoteListener, Delet
         copy.addAll(notes)
         return copy
     }
+
 }
