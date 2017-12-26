@@ -1,4 +1,4 @@
-package tsi.lv.mindbag.screens
+package tsi.lv.mindbag.screens.notes
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -17,12 +17,12 @@ class DeleteNoteDialog : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        onDeleteNoteListener = activity as DeleteNoteDialog.OnDeleteNoteListener
+        onDeleteNoteListener = activity as OnDeleteNoteListener
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        val caption = arguments.getString("id") as Int
+        val id = arguments.getInt("id") as Int
 
         val dialog = AlertDialog.Builder(activity)
                 .setTitle("Delete note")

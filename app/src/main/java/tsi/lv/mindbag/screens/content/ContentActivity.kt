@@ -1,4 +1,4 @@
-package tsi.lv.mindbag.screens
+package tsi.lv.mindbag.screens.content
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -15,7 +15,7 @@ import tsi.lv.mindbag.model.domain.Note
 import tsi.lv.mindbag.showKeyboard
 import javax.inject.Inject
 
-class NoteActivity : AppCompatActivity() {
+class ContentActivity : AppCompatActivity() {
 
     var mEditModeOn = false
 

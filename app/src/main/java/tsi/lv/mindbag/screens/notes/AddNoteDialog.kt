@@ -1,13 +1,10 @@
-package tsi.lv.mindbag.screens
+package tsi.lv.mindbag.screens.notes
 
 import android.app.AlertDialog
 import android.app.Dialog
 import android.app.DialogFragment
-import android.content.DialogInterface
-import android.graphics.Color
 import android.os.Bundle
 import android.widget.EditText
-import android.widget.Toast
 
 /**
  * Created by Vladislav on 12/24/2017.

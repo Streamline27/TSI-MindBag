@@ -1,4 +1,4 @@
-package tsi.lv.mindbag.screens
+package tsi.lv.mindbag.screens.notes
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView

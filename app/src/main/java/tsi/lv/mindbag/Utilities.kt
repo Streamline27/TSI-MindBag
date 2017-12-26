@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import tsi.lv.mindbag.screens.NoteActivity
 
 /**
  * Created by Vladislav on 12/24/2017.

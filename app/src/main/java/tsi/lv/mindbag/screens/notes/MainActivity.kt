@@ -1,4 +1,4 @@
-package tsi.lv.mindbag.screens
+package tsi.lv.mindbag.screens.notes
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,6 +13,7 @@ import tsi.lv.mindbag.R
 import tsi.lv.mindbag.perform
 import tsi.lv.mindbag.model.Model
 import tsi.lv.mindbag.model.domain.Note
+import tsi.lv.mindbag.screens.content.ContentActivity
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), AddNoteDialog.OnAddNoteListener, DeleteNoteDialog.OnDeleteNoteListener {
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity(), AddNoteDialog.OnAddNoteListener, Delet
      */
 
     fun onNoteItemClick(note : Note) {
-        val intent = Intent(this, NoteActivity::class.java)
+        val intent = Intent(this, ContentActivity::class.java)
         intent.putExtra("id", note.id)
         startActivity(intent)
     }
@@ -63,8 +64,8 @@ class MainActivity : AppCompatActivity(), AddNoteDialog.OnAddNoteListener, Delet
     fun onNoteItemLongClick(note : Note) : Boolean {
         val deleteFragment = DeleteNoteDialog()
         deleteFragment.addNoteIdArg(note.id)
-
         deleteFragment.show(fragmentManager, "Delete")
+
         return true
     }
 
