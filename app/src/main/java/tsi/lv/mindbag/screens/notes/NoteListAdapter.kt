@@ -38,6 +38,12 @@ class NoteListAdapter(val notes  : MutableList<Note>,
         notifyDataSetChanged()
     }
 
+    fun set(notes : List<Note>) {
+        this.notes.clear()
+        this.notes.addAll(notes)
+        notifyDataSetChanged()
+    }
+
     
     class NoteViewHolder(val noteView: View) : RecyclerView.ViewHolder(noteView){
 

@@ -1,17 +1,14 @@
 package tsi.lv.mindbag.model.database
 
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
 import tsi.lv.mindbag.model.domain.Note
 
 @Dao
 interface NoteDao {
 
-    @Query("SELECT * FROM note")
-    fun getAll() : List<Note>;
+    @Query("SELECT * FROM note WHERE bookId = :arg0")
+    fun getAllByBookId(bookId : Int) : List<Note>;
 
     @Query("SELECT * FROM note WHERE id = :arg0")
     fun findById(id : Int) : Note;
@@ -20,5 +17,8 @@ interface NoteDao {
     fun getLastAutoIncrement() : Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun create(note : Note);
+    fun createOrUpdate(note : Note);
+
+    @Query("DELETE FROM note WHERE id = :arg0")
+    fun deleteNote(id : Int)
 }

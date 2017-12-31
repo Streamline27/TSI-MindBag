@@ -80,9 +80,13 @@ class ContentActivity : AppCompatActivity() {
     }
 
     fun navigateUp() {
-        NavUtils.navigateUpTo(this, NavUtils.getParentActivityIntent(this))
+        super.onBackPressed()
     }
 
+    override fun onBackPressed() {
+        save()
+        super.onBackPressed()
+    }
 
     fun save() {
         if (this.note != null) {

@@ -3,6 +3,7 @@ package tsi.lv.mindbag.di
 import android.app.Application
 import dagger.Module
 import dagger.Provides
+import tsi.lv.mindbag.model.DatabaseModel
 import tsi.lv.mindbag.model.MockModel
 import tsi.lv.mindbag.model.Model
 import javax.inject.Singleton
@@ -21,5 +22,5 @@ class AppModule(val application: Application) {
 
     @Provides
     @Singleton
-    fun provideModel() : Model = MockModel()
+    fun provideModel(ctx : Application) : Model = DatabaseModel(ctx)
 }

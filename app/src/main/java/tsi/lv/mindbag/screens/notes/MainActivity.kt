@@ -3,6 +3,7 @@ package tsi.lv.mindbag.screens.notes
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.v4.app.FragmentActivity
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
@@ -18,12 +19,14 @@ import tsi.lv.mindbag.App
 import tsi.lv.mindbag.R
 import tsi.lv.mindbag.perform
 import tsi.lv.mindbag.model.Model
+import tsi.lv.mindbag.model.domain.Book
 import tsi.lv.mindbag.model.domain.Note
+import tsi.lv.mindbag.mutableCopyOf
 import tsi.lv.mindbag.screens.books.BooksFragment
 import tsi.lv.mindbag.screens.content.ContentActivity
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), AddNoteDialog.OnAddNoteListener, DeleteNoteDialog.OnDeleteNoteListener{
+class MainActivity : AppCompatActivity(), AddNoteDialog.OnAddNoteListener, DeleteNoteDialog.OnDeleteNoteListener, BooksFragment.OnBookDrawerListener{
 
     var mAdapter : NoteListAdapter? = null
 
@@ -51,12 +54,21 @@ class MainActivity : AppCompatActivity(), AddNoteDialog.OnAddNoteListener, Delet
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-
         notesListView.layoutManager = LinearLayoutManager(this)
 
         mAdapter = NoteListAdapter(mutableCopyOf(model.getNotes()), this::onNoteItemClick, this::onNoteItemLongClick);
         notesListView.adapter = mAdapter
+    }
 
+    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
+        super.onSaveInstanceState(outState, outPersistentState)
+
+        outState?.putInt("SELECTED_POSITION", 0)
+    }
+
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onRestoreInstanceState(savedInstanceState, persistentState)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -73,7 +85,6 @@ class MainActivity : AppCompatActivity(), AddNoteDialog.OnAddNoteListener, Delet
     /*
         Reactions to UI events
      */
-
     fun onNoteItemClick(note : Note) {
         val intent = Intent(this, ContentActivity::class.java)
         intent.putExtra("id", note.id)
@@ -103,7 +114,7 @@ class MainActivity : AppCompatActivity(), AddNoteDialog.OnAddNoteListener, Delet
     }
 
     override fun onAddNoteClick(caption: String) {
-        val note = Note(caption, content = "")
+        val note = Note(caption, content = "", bookId = model.getSelectedBook().id)
         model.createNote(note)
         mAdapter?.add(note)
     }
@@ -113,14 +124,10 @@ class MainActivity : AppCompatActivity(), AddNoteDialog.OnAddNoteListener, Delet
         mAdapter?.delete(id)
     }
 
-    /*
-        Private helper functions
-     */
 
-    fun mutableCopyOf(notes : List<Note> ) : MutableList<Note>{
-        var copy = ArrayList<Note>()
-        copy.addAll(notes)
-        return copy
+    override fun onBookSelect(book: Book) {
+        model.selectBook(book.id!!)
+        mAdapter?.set(model.getNotes())
     }
 
 }

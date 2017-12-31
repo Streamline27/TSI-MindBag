@@ -17,7 +17,10 @@ class BooksListAdapter(val books : MutableList<Book>,
                        val clickListener: (Book) -> Unit,
                        val longClickListener: (Book) -> Boolean) : RecyclerView.Adapter<BooksListAdapter.BookViewHolder>() {
 
+    var selectedPosition : Int = 0
+
     override fun onBindViewHolder(holder: BooksListAdapter.BookViewHolder, position: Int) {
+        holder.itemView.setSelected(selectedPosition == position);
         holder.bind(this.books[position], clickListener, longClickListener)
     }
 
@@ -25,19 +28,45 @@ class BooksListAdapter(val books : MutableList<Book>,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BooksListAdapter.BookViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.book_item, parent, false)
-        return BookViewHolder(view)
+        return BookViewHolder(view, this)
     }
 
+    fun add(book : Book) {
+        books.add(book)
+        notifyDataSetChanged()
+    }
 
-    class BookViewHolder(val bookView: View) : RecyclerView.ViewHolder(bookView){
+    fun delete(id : Int) {
+        val indexToRemove = books.indexOfFirst { id.equals(it.id)}
+        if (selectedPosition > indexToRemove) selectedPosition--
+        books.removeAt(indexToRemove)
+
+        notifyDataSetChanged()
+    }
+
+    class BookViewHolder(val bookView: View, val adapter: BooksListAdapter) : RecyclerView.ViewHolder(bookView){
 
         fun bind(book : Book,
                  clickListener     : (Book) -> Unit,
                  longClickListener : (Book) -> Boolean) = with(bookView){
 
             bookItemTitle.text = book.title
-            setOnClickListener{ clickListener(book) }
             setOnLongClickListener{ longClickListener(book) }
+            setOnClickListener{
+                adapter.notifyItemChanged(adapter.selectedPosition)
+                adapter.selectedPosition = adapterPosition
+                adapter.notifyItemChanged(adapter.selectedPosition)
+
+                clickListener(book)
+            }
+        }
+    }
+
+    fun setSelectedBook(selectedBook: Book) {
+        val index = books.indexOfFirst { it.id!!.equals(selectedBook.id) }
+        when {
+            index == -1 -> selectedPosition = 0
+            else        -> selectedPosition = index
         }
     }
 }

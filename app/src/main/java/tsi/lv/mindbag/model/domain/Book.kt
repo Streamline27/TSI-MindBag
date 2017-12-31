@@ -9,7 +9,7 @@ import android.arch.persistence.room.PrimaryKey
  */
 
 @Entity
-class Book {
+class Book() {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
@@ -18,7 +18,7 @@ class Book {
     @ColumnInfo(name = "title")
     var title: String? = null
 
-    constructor(title : String, id : Int? = null) {
+    constructor(title : String, id : Int? = null): this() {
         this.title = title
         this.id = id
     }

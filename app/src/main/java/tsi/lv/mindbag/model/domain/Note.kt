@@ -17,9 +17,12 @@ class Note() {
     @ColumnInfo(name = "content")
     var content: String? = null
 
-    constructor(caption: String, content: String? = null, id : Int? = null): this() {
+    var bookId : Int? = null
+
+    constructor(caption: String, content: String? = null, id : Int? = null, bookId: Int? = null): this() {
         this.caption = caption
         this.content = content
         this.id = id
+        this.bookId = bookId
     }
 }

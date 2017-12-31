@@ -17,13 +17,13 @@ class DatabaseTest() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
 
-        val db = Room.databaseBuilder(appContext, AppDatabase::class.java, "db-name").build();
+        val db = Room.databaseBuilder(appContext, AppDatabase::class.java, "db-name").allowMainThreadQueries().build();
 
-        val note = Note(caption = "Caption", content = "content")
-        db.noteDao().create(note)
+        val note = Note(caption = "Caption", content = "content", bookId = 111111)
+        db.noteDao().createOrUpdate(note)
         note.id = db.noteDao().getLastAutoIncrement()
 
-        var notes = db.noteDao().getAll();
+        var notes = db.noteDao().getAllByBookId(111111);
 
         assertTrue(notes.isNotEmpty());
     }
