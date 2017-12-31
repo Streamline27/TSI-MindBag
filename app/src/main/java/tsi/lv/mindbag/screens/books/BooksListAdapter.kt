@@ -4,11 +4,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.book_item.view.*
-import kotlinx.android.synthetic.main.note_item.view.*
+import kotlinx.android.synthetic.main.item_book.view.*
 import tsi.lv.mindbag.R
 import tsi.lv.mindbag.model.domain.Book
-import tsi.lv.mindbag.model.domain.Note
 
 /**
  * Created by Vladislav on 12/26/2017.
@@ -27,7 +25,7 @@ class BooksListAdapter(val books : MutableList<Book>,
     override fun getItemCount(): Int = books.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BooksListAdapter.BookViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.book_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_book, parent, false)
         return BookViewHolder(view, this)
     }
 

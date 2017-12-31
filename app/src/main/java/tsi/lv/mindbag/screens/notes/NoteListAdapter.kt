@@ -1,11 +1,10 @@
 package tsi.lv.mindbag.screens.notes
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.note_item.view.*
+import kotlinx.android.synthetic.main.item_note.view.*
 import tsi.lv.mindbag.R
 import tsi.lv.mindbag.model.domain.Note
 
@@ -16,7 +15,7 @@ class NoteListAdapter(val notes  : MutableList<Note>,
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.note_item, parent, false);
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_note, parent, false);
         return NoteViewHolder(view);
     }
 

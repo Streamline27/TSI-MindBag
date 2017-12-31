@@ -58,6 +58,7 @@ class DatabaseModel(val appContext: Context) : Model {
 
     override fun deleteBook(id: Int) {
         bookDao.deleteById(id)
+        noteDao.deleteNotes(id)
     }
 
     override fun getNotes(): List<Note> {

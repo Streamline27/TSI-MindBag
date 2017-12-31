@@ -13,8 +13,10 @@ import android.view.Gravity
 import android.view.Gravity.START
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_books.*
 import tsi.lv.mindbag.App
 import tsi.lv.mindbag.R
 import tsi.lv.mindbag.perform
@@ -24,6 +26,7 @@ import tsi.lv.mindbag.model.domain.Note
 import tsi.lv.mindbag.mutableCopyOf
 import tsi.lv.mindbag.screens.books.BooksFragment
 import tsi.lv.mindbag.screens.content.ContentActivity
+import tsi.lv.mindbag.screens.search.SearchActivity
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), AddNoteDialog.OnAddNoteListener, DeleteNoteDialog.OnDeleteNoteListener, BooksFragment.OnBookDrawerListener{
@@ -58,6 +61,8 @@ class MainActivity : AppCompatActivity(), AddNoteDialog.OnAddNoteListener, Delet
 
         mAdapter = NoteListAdapter(mutableCopyOf(model.getNotes()), this::onNoteItemClick, this::onNoteItemLongClick);
         notesListView.adapter = mAdapter
+
+        buttonSearch.setOnClickListener(this::onSearchButtonClick)
     }
 
     override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
@@ -113,6 +118,11 @@ class MainActivity : AppCompatActivity(), AddNoteDialog.OnAddNoteListener, Delet
         AddNoteDialog().show(fragmentManager, "Create")
     }
 
+    fun onSearchButtonClick(view: View) {
+        val intent = Intent(this, SearchActivity::class.java)
+        startActivity(intent)
+    }
+
     override fun onAddNoteClick(caption: String) {
         val note = Note(caption, content = "", bookId = model.getSelectedBook().id)
         model.createNote(note)
@@ -129,5 +139,8 @@ class MainActivity : AppCompatActivity(), AddNoteDialog.OnAddNoteListener, Delet
         model.selectBook(book.id!!)
         mAdapter?.set(model.getNotes())
     }
+
+
+
 
 }

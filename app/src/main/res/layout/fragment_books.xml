@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-
-
+        android:paddingBottom="16dp"
         android:clipToPadding="false">
 
         <LinearLayout
@@ -56,6 +55,7 @@
                 android:layout_height="38dp"
                 android:background="@drawable/search_butto_shape"
                 android:orientation="horizontal"
+                android:id="@+id/buttonSearch"
                 android:layout_marginBottom="16dp">
 
                 <ImageView

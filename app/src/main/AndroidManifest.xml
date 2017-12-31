@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".screens.notes.MainActivity">
+        <activity android:name=".screens.notes.MainActivity"
+                  android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,6 +21,10 @@
         <activity
             android:name=".screens.content.ContentActivity"
             android:parentActivityName=".screens.notes.MainActivity" />
+        <activity
+            android:name=".screens.search.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>
