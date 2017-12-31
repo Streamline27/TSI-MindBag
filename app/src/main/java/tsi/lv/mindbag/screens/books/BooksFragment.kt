@@ -68,8 +68,8 @@ class BooksFragment : Fragment(), AddBookDialog.OnAddBookListener, DeleteBookDia
     }
 
     /*
-             * UI reactions
-             */
+     * UI reactions
+     */
     private fun onPlusBookButtonClick(view: View) {
         val dialog = AddBookDialog.newInstance(this)
         dialog.show(fragmentManager, "Create")
@@ -83,9 +83,10 @@ class BooksFragment : Fragment(), AddBookDialog.OnAddBookListener, DeleteBookDia
     }
 
     private fun onBookItemClick(book: Book) {
-        with(activity as OnBookDrawerListener) {
-            onBookSelect(book)
-        }
+
+        mAdapter?.setActive(book)
+        (activity as OnBookDrawerListener).onBookSelect(book)
+
         activity.drawerLayout.closeDrawer(Gravity.LEFT, true);
     }
 
@@ -110,12 +111,13 @@ class BooksFragment : Fragment(), AddBookDialog.OnAddBookListener, DeleteBookDia
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == RESULT_CODE_SEARCH_BOOK_SELECTED) run {
-            with(activity as OnBookDrawerListener) {
-                onBookSelect(model.getSelectedBook())
-                activity.drawerLayout.closeDrawer(Gravity.LEFT, false);
-            }
+        if (resultCode == RESULT_CODE_SEARCH_BOOK_SELECTED) {
 
+            val selectedBook = model.getSelectedBook()
+            mAdapter?.setActive(selectedBook)
+            (activity as OnBookDrawerListener).onBookSelect(selectedBook)
+            
+            activity.drawerLayout.closeDrawer(Gravity.LEFT, false);
         }
     }
 

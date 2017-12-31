@@ -42,6 +42,17 @@ class BooksListAdapter(val books : MutableList<Book>,
         notifyDataSetChanged()
     }
 
+    fun setActive(book: Book) {
+        val index = books.indexOfFirst{ it.id!!.equals(book.id)}
+        setActive(index)
+    }
+
+    fun setActive(position: Int) {
+        notifyItemChanged(selectedPosition)
+        selectedPosition = position
+        notifyItemChanged(selectedPosition)
+    }
+
     class BookViewHolder(val bookView: View, val adapter: BooksListAdapter) : RecyclerView.ViewHolder(bookView){
 
         fun bind(book : Book,
@@ -50,13 +61,7 @@ class BooksListAdapter(val books : MutableList<Book>,
 
             bookItemTitle.text = book.title
             setOnLongClickListener{ longClickListener(book) }
-            setOnClickListener{
-                adapter.notifyItemChanged(adapter.selectedPosition)
-                adapter.selectedPosition = adapterPosition
-                adapter.notifyItemChanged(adapter.selectedPosition)
-
-                clickListener(book)
-            }
+            setOnClickListener{ clickListener(book) }
         }
     }
 
