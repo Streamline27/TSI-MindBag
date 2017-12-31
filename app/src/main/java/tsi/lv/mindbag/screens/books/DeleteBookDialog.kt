@@ -8,6 +8,8 @@ import android.graphics.Color.RED
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
+import tsi.lv.mindbag.EXTRA_DIALOG_DELETE_BOOK_ID
+import tsi.lv.mindbag.EXTRA_DIALOG_DELETE_BOOK_TITLE
 import tsi.lv.mindbag.model.domain.Book
 
 /**
@@ -22,8 +24,8 @@ class DeleteBookDialog : DialogFragment() {
             val dialog = DeleteBookDialog()
 
             val args = dialog.arguments ?: Bundle()
-            args.putInt("id", book.id?: -1)
-            args.putString("titile", book.title)
+            args.putInt(EXTRA_DIALOG_DELETE_BOOK_ID, book.id?: -1)
+            args.putString(EXTRA_DIALOG_DELETE_BOOK_TITLE, book.title)
             dialog.arguments = args
 
             dialog.setTargetFragment(targetFragment, 1)
@@ -40,8 +42,8 @@ class DeleteBookDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        val id = arguments.getInt("id") as Int
-        val titile = arguments.getString("titile")
+        val id = arguments.getInt(EXTRA_DIALOG_DELETE_BOOK_ID) as Int
+        val titile = arguments.getString(EXTRA_DIALOG_DELETE_BOOK_TITLE)
 
         val dialog = AlertDialog.Builder(activity)
                 .setTitle("Delete category")

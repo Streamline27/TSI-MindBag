@@ -6,6 +6,7 @@ import android.app.DialogFragment
 import android.content.DialogInterface.BUTTON_POSITIVE
 import android.graphics.Color.RED
 import android.os.Bundle
+import tsi.lv.mindbag.EXTRA_DIALOG_DELETE_NOTE_ID
 
 /**
  * Created by Vladislav on 12/24/2017.
@@ -20,7 +21,7 @@ class DeleteNoteDialog : DialogFragment() {
             val dialog = DeleteNoteDialog()
 
             val args = dialog.arguments ?: Bundle()
-            args.putInt("id", id?: -1)
+            args.putInt(EXTRA_DIALOG_DELETE_NOTE_ID, id?: -1)
             dialog.arguments = args
 
             return dialog
@@ -35,7 +36,7 @@ class DeleteNoteDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        val id = arguments.getInt("id") as Int
+        val id = arguments.getInt(EXTRA_DIALOG_DELETE_NOTE_ID) as Int
 
         val dialog = AlertDialog.Builder(activity)
                 .setTitle("Delete note")

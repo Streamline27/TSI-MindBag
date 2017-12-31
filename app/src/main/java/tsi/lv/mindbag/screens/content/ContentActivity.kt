@@ -2,17 +2,11 @@ package tsi.lv.mindbag.screens.content
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.NavUtils
-import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_note.*
 import kotlinx.android.synthetic.main.header_note.*
-import tsi.lv.mindbag.App
-import tsi.lv.mindbag.R
-import tsi.lv.mindbag.hideKeyboard
+import tsi.lv.mindbag.*
 import tsi.lv.mindbag.model.Model
 import tsi.lv.mindbag.model.domain.Note
-import tsi.lv.mindbag.showKeyboard
 import javax.inject.Inject
 
 class ContentActivity : AppCompatActivity() {
@@ -35,7 +29,7 @@ class ContentActivity : AppCompatActivity() {
         supportActionBar?.title = "Note details"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        note = model.getNote(intent.extras.getInt("id"))
+        note = model.getNote(intent.extras.getInt(EXTRA_ACTIVITY_DISPLAYED_NOTE_ID))
         noteItemContent.setText(note?.content)
         noteItemCaption.setText(note?.caption)
 
