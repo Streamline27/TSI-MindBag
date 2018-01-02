@@ -116,7 +116,7 @@ class BooksFragment : Fragment(), AddBookDialog.OnAddBookListener, DeleteBookDia
             val selectedBook = model.getSelectedBook()
             mAdapter?.setActive(selectedBook)
             (activity as OnBookDrawerListener).onBookSelect(selectedBook)
-            
+
             activity.drawerLayout.closeDrawer(Gravity.LEFT, false);
         }
     }

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.arch.persistence.room.Room
 import android.content.Context
+import android.content.SharedPreferences
 import tsi.lv.mindbag.model.database.AppDatabase
 import tsi.lv.mindbag.model.database.BookDao
 import tsi.lv.mindbag.model.database.NoteDao
@@ -13,30 +14,15 @@ import tsi.lv.mindbag.model.domain.Note
 /**
  * Created by Vladislav on 12/31/2017.
  */
-class DatabaseModel(val appContext: Context) : Model {
+class DatabaseModel(private val preferences: SharedPreferences,
+                    private val noteDao: NoteDao,
+                    private val bookDao: BookDao) : Model {
 
-    val noteDao: NoteDao
-    val bookDao: BookDao
-
-    var selectedBookId = 0
-
-    init {
-        val db = Room.databaseBuilder(appContext, AppDatabase::class.java, "db-name").allowMainThreadQueries().build();
-
-        bookDao = db.bookDao()
-        noteDao = db.noteDao()
-
-
-        val preferences = appContext.getSharedPreferences("MINDBAG_PREF", Context.MODE_PRIVATE)
-        selectedBookId = preferences.getInt("SELECTED_BOOK", 0);
-
-    }
-
+    private var selectedBookId = preferences.getInt("SELECTED_BOOK", 0);
 
     override fun selectBook(id: Int) {
         selectedBookId = id
 
-        val preferences = appContext.getSharedPreferences("MINDBAG_PREF", Context.MODE_PRIVATE)
         val editor = preferences.edit()
         editor.putInt("SELECTED_BOOK", selectedBookId)
         editor.apply()
